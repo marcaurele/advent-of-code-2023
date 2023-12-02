@@ -33,7 +33,7 @@ def cli():
 @click.pass_context
 @click.argument("input", type=click.File("r"))
 def day1_part1(ctx, input):
-    p = re.compile("(\\d)")
+    p = re.compile(r"(\d)")
     sum = 0
     for line in input.readlines():
         try:
@@ -56,7 +56,7 @@ def day1_part1(ctx, input):
 @click.pass_context
 @click.argument("input", type=click.File("r"))
 def day1_part2(ctx, input):
-    p = re.compile("(\\d|one|two|three|four|five|six|seven|eight|nine)")
+    p = re.compile("r(\d|one|two|three|four|five|six|seven|eight|nine)")
     sum = 0
     for line in input.readlines():
         try:
