@@ -24,51 +24,53 @@ SWITCH = {
 }
 
 
-@click.group()
+@click.group(help="Advent of code day 1")
 def cli():
     pass
 
 
-@cli.command()
+@cli.command(help="Day 1 - part 1")
+@click.pass_context
 @click.argument("input", type=click.File("r"))
-def part1(input):
+def day1_part1(ctx, input):
     p = re.compile("(\\d)")
     sum = 0
     for line in input.readlines():
         try:
-            # click.echo(line[:-1], nl=False)
+            if ctx.obj["DEBUG"]:
+                click.echo(line[:-1], nl=False)
             m = p.findall(line)
             if len(m) == 0:
                 continue
             else:
                 sum += int(f"{m[0]}{m[-1]}")
-                # val = int(f"{m[0]}{m[-1]}")
-            # click.echo(f" -> {m} -> {val} -> {sum}")
+                val = int(f"{m[0]}{m[-1]}")
+            if ctx.obj["DEBUG"]:
+                click.echo(f" -> {m} -> {val} -> {sum}")
         except ValueError:
             click.echo("Invalid number", err=True, fg="red")
-    click.echo(f"Calibration value: {sum}")
+    click.secho(f"Calibration value: {sum}", fg="green")
 
 
-@cli.command()
+@cli.command(help="Day 1 - part 2")
+@click.pass_context
 @click.argument("input", type=click.File("r"))
-def part2(input):
+def day1_part2(ctx, input):
     p = re.compile("(\\d|one|two|three|four|five|six|seven|eight|nine)")
     sum = 0
     for line in input.readlines():
         try:
-            # click.echo(line[:-1], nl=False)
+            if ctx.obj["DEBUG"]:
+                click.echo(line[:-1], nl=False)
             m1 = p.search(line)
-            for i in range(1, len(line)+1):
-                m2 = p.search(line[i * -1:])
+            for i in range(1, len(line) + 1):
+                m2 = p.search(line[i * -1 :])
                 if m2:
                     break
 
             sum += SWITCH.get(m1.group(0)) * 10 + SWITCH.get(m2.group(0))
-            # click.echo(f" -> {m1.group(0)}{m2.group(0)} -> {sum}")
+            if ctx.obj["DEBUG"]:
+                click.echo(f" -> {m1.group(0)}{m2.group(0)} -> {sum}")
         except ValueError:
             click.echo("Invalid number", err=True, fg="red")
-    click.echo(f"Calibration value: {sum}")
-
-
-if __name__ == "__main__":
-    cli()
+    click.secho(f"Calibration value: {sum}", fg="green")
