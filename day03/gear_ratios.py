@@ -51,13 +51,14 @@ def day3_part1(ctx, input):
 
         non_matchings.append(non_matching)
 
-    for i in range(number_of_lines):
-        line_matches = non_matchings[i]
-        for j, c in enumerate(lines[i]):
-            if color := colorize(j, line_matches):
-                click.secho(c, fg=color, nl=False)
-            else:
-                click.echo(c, nl=False)
+    if ctx.obj["DEBUG"]:
+        for i in range(number_of_lines):
+            line_matches = non_matchings[i]
+            for j, c in enumerate(lines[i]):
+                if color := colorize(j, line_matches):
+                    click.secho(c, fg=color, nl=False)
+                else:
+                    click.echo(c, nl=False)
 
     click.secho(f"Engine parts sum: {sum}", fg="green")
 

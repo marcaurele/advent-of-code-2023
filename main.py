@@ -4,6 +4,7 @@ import click
 from day01 import trebuchet as day1
 from day02 import cube_conundrum as day2
 from day03 import gear_ratios as day3
+from day04 import scratchcards as day4
 
 
 @click.group()
@@ -20,6 +21,8 @@ cli.add_command(day2.day2_part1)
 cli.add_command(day2.day2_part2)
 cli.add_command(day3.day3_part1)
 cli.add_command(day3.day3_part2)
+cli.add_command(day4.day4_part1)
+cli.add_command(day4.day4_part2)
 
 if __name__ == "__main__":
     cli()
