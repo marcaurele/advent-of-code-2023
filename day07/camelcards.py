@@ -1,11 +1,8 @@
 import re
 import click
 
-from functools import reduce
-from operator import mul
 
-
-@click.group(help="Advent of code day 3")
+@click.group(help="Advent of code day 7")
 def cli():
     pass
 

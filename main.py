@@ -8,6 +8,7 @@ from day04 import scratchcards as day4
 from day05 import gardener as day5
 from day06 import boatraces as day6
 from day07 import camelcards as day7
+from day08 import wastelands as day8
 
 
 @click.group()
@@ -32,6 +33,8 @@ cli.add_command(day6.day6_part1)
 cli.add_command(day6.day6_part2)
 cli.add_command(day7.day7_part1)
 cli.add_command(day7.day7_part2)
+cli.add_command(day8.day8_part1)
+cli.add_command(day8.day8_part2)
 
 if __name__ == "__main__":
     cli()
