@@ -10,6 +10,7 @@ from day06 import boatraces as day6
 from day07 import camelcards as day7
 from day08 import wastelands as day8
 from day09 import mirage as day9
+from day10 import pipemaze as day10
 
 
 @click.group()
@@ -38,6 +39,8 @@ cli.add_command(day8.day8_part1)
 cli.add_command(day8.day8_part2)
 cli.add_command(day9.day9_part1)
 cli.add_command(day9.day9_part2)
+cli.add_command(day10.day10_part1)
+cli.add_command(day10.day10_part2)
 
 if __name__ == "__main__":
     cli()
