@@ -193,7 +193,8 @@ def starting_directions(lines, starting_position):
 @cli.command(help="Day 10 - part 2")
 @click.pass_context
 @click.argument("input", type=click.File("r"))
-def day10_part2(ctx, input):
+@click.option("--round", is_flag=True)
+def day10_part2(ctx, input, round):
     p = re.compile(r"(S)")
     lines = input.readlines()
 
@@ -242,7 +243,7 @@ def day10_part2(ctx, input):
         next_s2 = lines[s2_move[0]][s2_move[1]]
         s2.update_letter(next_s2)
 
-    insider_outside = InsideOutside(positions, ctx)
+    insider_outside = InsideOutside(positions, ctx, round)
     for i, line in enumerate(lines):
         for j, c in enumerate(line):
             if c == "S":
@@ -256,13 +257,14 @@ def day10_part2(ctx, input):
 
 
 class InsideOutside:
-    def __init__(self, pipe, ctx):
+    def __init__(self, pipe, ctx, round):
         self.insider = 0
         self.outsider = 0
         self.inside = False
         self.last_cross = None
         self.pipe = pipe
         self.ctx = ctx
+        self.round = round
 
     def __str__(self):
         return f"insider: {self.insider}, outsider: {self.outsider}"
@@ -277,7 +279,7 @@ class InsideOutside:
             elif letter == "F" and self.last_cross == None:
                 self.last_cross = "F"
                 if self.ctx.obj["DEBUG"]:
-                    click.secho("┌", fg="red", nl=False)
+                    click.secho("╭" if self.round else "┌", fg="red", nl=False)
             elif letter == "F" and self.last_cross != None:
                 raise Exception(
                     f"Issue with F at position {position}, last cross: {self.last_cross}"
@@ -287,16 +289,16 @@ class InsideOutside:
                 self.inside = not self.inside
                 self.last_cross = None
                 if self.ctx.obj["DEBUG"]:
-                    click.secho("┐", fg="red", nl=False)
+                    click.secho("╮" if self.round else "┐", fg="red", nl=False)
             elif letter == "7":
                 self.last_cross = None
                 if self.ctx.obj["DEBUG"]:
-                    click.secho("┐", fg="red", nl=False)
+                    click.secho("╮" if self.round else "┐", fg="red", nl=False)
 
             elif letter == "L" and self.last_cross == None:
                 self.last_cross = "L"
                 if self.ctx.obj["DEBUG"]:
-                    click.secho("└", fg="red", nl=False)
+                    click.secho("╰" if self.round else "└", fg="red", nl=False)
             elif letter == "L" and self.last_cross != None:
                 raise Exception(
                     f"Issue with L at position {position}, last cross: {self.last_cross}"
@@ -306,11 +308,11 @@ class InsideOutside:
                 self.inside = not self.inside
                 self.last_cross = None
                 if self.ctx.obj["DEBUG"]:
-                    click.secho("┘", fg="red", nl=False)
+                    click.secho("╯" if self.round else "┘", fg="red", nl=False)
             elif letter == "J":
                 self.last_cross = None
                 if self.ctx.obj["DEBUG"]:
-                    click.secho("┘", fg="red", nl=False)
+                    click.secho("╯" if self.round else "┘", fg="red", nl=False)
 
             elif letter == "-":
                 if self.ctx.obj["DEBUG"]:
