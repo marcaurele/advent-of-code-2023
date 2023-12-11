@@ -11,6 +11,7 @@ from day07 import camelcards as day7
 from day08 import wastelands as day8
 from day09 import mirage as day9
 from day10 import pipemaze as day10
+from day11 import cosmicexpansion as day11
 
 
 @click.group()
@@ -41,6 +42,8 @@ cli.add_command(day9.day9_part1)
 cli.add_command(day9.day9_part2)
 cli.add_command(day10.day10_part1)
 cli.add_command(day10.day10_part2)
+cli.add_command(day11.day11_part1)
+cli.add_command(day11.day11_part2)
 
 if __name__ == "__main__":
     cli()
